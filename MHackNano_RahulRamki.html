@@ -1,0 +1,219 @@
+<html>
+<body style="background-color:#098938;">
+<center>
+<h1>Rahul's Roulette</h1><img src="rTable.jpg" alt="pic not working" style="width:500px;height:300px;"> </img>
+
+<h2> Choose your bet </h2>
+</center>
+<center>
+<h3> Red or Black </h3>
+<form id="myform">
+    Red<input type="radio" name="checkfield" id="g01-01"  onchange="doalertRed(this)"/>
+    Black<input type="radio" name="checkfield" id="g01-01"  onchange="doalertBlack(this)"/>
+	<br>
+	Amount <input type="text" value="0" id ="RedBlack"></input>
+	</form>
+<h3> Even or Odd </h3>
+<form id="myform">
+    Even<input type="radio" name="checkfield" id="g2"  onchange="doalertEven(this)"/>
+	Odd<input type="radio" name="checkfield" id="g1"  onchange="doalertOdd(this)"/>
+	<br>
+	Amount <input id="EvenOdd" value="0" type="text"></input>
+</form>
+<h3> Dozen Bet </h3>
+<form id="myform">
+    First Dozen<input type="radio" name="checkfield" id="g01-01"  onchange="doalertFirstDoz(this)"/>
+    Second Dozen<input type="radio" name="checkfield" id="g01-01"  onchange="doalertSecondDoz(this)"/>
+	Third Dozen<input type="radio" name="checkfield" id="g01-01"  onchange="doalertThirdDoz(this)"/>
+	<br>
+	Amount <input id="Dozen" value="0" type="text"></input>
+</form>
+<h3>Amount to spend</h3>
+<p id="betAmount">1000</p>
+<button id="spin" align="center" type="button" onClick="spin()">SPIN!</button>
+<p id="spinValue"></p>
+</center>
+
+<script>
+var redChecked;
+var blackChecked;
+var evenChecked;
+var oddChecked;
+var firstDozChecked;
+var secondDozChecked;
+var thirdDozChecked;
+var x = 1000;
+
+function doalertRed(checkboxElem) {
+  if (checkboxElem.checked) {
+    redChecked = true;
+  }
+  else
+  {
+	redChecked = false;
+  }
+}
+function doalertBlack(checkboxElem) {
+  if (checkboxElem.checked) {
+     blackChecked = true;
+  }
+  else
+  {
+	blackChecked = false;
+  }
+}
+function doalertOdd(checkboxElem) {
+  if (checkboxElem.checked) {
+    oddChecked = true;
+  }
+  else
+  {
+	oddChecked = false;
+  }
+}
+function doalertEven(checkboxElem) {
+  if (checkboxElem.checked) {
+     evenChecked = true;
+  }
+  else
+  {
+	evenChecked = false;
+  }
+}
+function doalertFirstDoz(checkboxElem) {
+  if (checkboxElem.checked) {
+    firstDozChecked = true;
+  }
+  else
+  {
+	firstDozChecked = false;
+  }
+}
+function doalertSecondDoz(checkboxElem) {
+  if (checkboxElem.checked) {
+     secondDozChecked = true;
+  }
+  else
+  {
+	secondDozChecked = false;
+  }
+}
+function doalertThirdDoz(checkboxElem) {
+  if (checkboxElem.checked) {
+    thirdDozChecked = true;
+  }
+  else
+  {
+	thirdDozChecked = false;
+  }
+}
+
+function spin(){
+	var bet1 = document.getElementById("EvenOdd").value *1;
+	var bet2 = document.getElementById("RedBlack").value*1;
+	var bet3 = document.getElementById("Dozen").value*1;
+	var spinValue = Math.floor(Math.random()*36);
+	var spinValue2 = spinValue.toString();
+	x = x + evenOddGamble(bet1, spinValue)
+	+ redBlackGamble(bet2, spinValue) + dozenGamble(bet3, spinValue);
+	document.getElementById("spinValue").innerHTML = spinValue2;
+	document.getElementById("betAmount").innerHTML = x;
+}
+
+function evenOddGamble(bet,real)
+{
+	if((real%2 == 0) && (real != 0))
+	{
+		if(evenChecked)
+		{
+			bet = bet;
+		}
+		else
+		{
+			bet = bet * (-1);
+		}
+	}
+	else
+	{
+		if(oddChecked)
+		{
+			bet = bet;
+		}
+		else
+		{
+			bet = bet * (-1);
+		}
+	}
+	return bet;
+}
+function redBlackGamble(bet,real)
+{
+	if((real === 1) || (real === 3) || (real === 5) || (real === 7) 
+	|| (real === 9) || (real === 12) || (real === 14) || (real === 16)
+	|| (real === 19) || (real === 21) || (real === 23) || (real === 25) 
+	|| (real === 27) || (real === 30) || (real === 32) || (real === 34)
+	|| (real === 36))
+	{
+		if(redChecked)
+		{
+			bet = bet;
+		}
+		else
+		{
+			bet = bet * (-1);
+		}
+	}
+	else
+	{
+		if(blackChecked)
+		{
+			bet = bet;
+		}
+		else
+		{
+			bet = bet * (-1);
+		}
+	}
+	return bet;
+}
+function dozenGamble(bet,real)
+{
+	if ((real >=1) && (real<=12))
+	{
+		if(firstDozChecked)
+		{
+			bet = bet*2;
+		}
+		else
+		{
+			bet = bet * (-1);
+		}
+	}
+	if ((real >=13) && (real<=24))
+	{
+		if(secondDozChecked)
+		{
+			bet = bet*2;
+		}
+		else
+		{
+			bet = bet * (-1);
+		}
+	}
+	if ((real >=25) && (real<=36))
+	{
+		if(thirdDozChecked)
+		{
+			bet = bet*2;
+		}
+		else
+		{
+			bet = bet * (-1);
+		}
+	}
+	return bet;
+}
+</script>
+
+</body>
+</html> 
